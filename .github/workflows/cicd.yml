@@ -3,7 +3,9 @@ name: cicd
 on:
   workflow_dispatch:
   push:
-    branches: [ testing ]
+    branches: [ dev ]
+  schedule:
+    - cron: '0 0 * * 3'
 
 jobs:
   build:
@@ -28,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/main/Dockerfile
+          file: Dockerfile
           platforms: linux/amd64
           push: true
           tags: ghcr.io/ivanjx/tor:dev
